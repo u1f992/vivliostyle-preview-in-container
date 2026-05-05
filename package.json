@@ -1,6 +1,11 @@
 {
+  "scripts": {
+    "build": "docker run --rm --volume .:/workdir --workdir /workdir --user root --entrypoint bash --tty ghcr.io/vivliostyle/cli:10.5.0 scripts/build.sh",
+    "preview": "docker run --rm --volume .:/workdir --workdir /workdir --user root --entrypoint bash --tty --interactive --publish 14500:14500 ghcr.io/vivliostyle/cli:10.5.0 scripts/preview.sh"
+  },
   "devDependencies": {
     "@qiita/qiita-cli": "^1.8.0",
     "@vivliostyle/cli": "10.5.0"
-  }
+  },
+  "type": "module"
 }

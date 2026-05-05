@@ -1,7 +1,10 @@
 ---
-title: vivliostyle-preview-in-container
+title: コンテナ内のVivliostyleのプレビューをWebページ化してコンテナの外から確認する
 tags:
-  - ''
+  - vivliostyle
+  - 組版
+  - Docker
+  - VNC
 private: false
 updated_at: ''
 id: null
@@ -34,7 +37,7 @@ Vivliostyleの組版処理はクライアントサイドJavaScriptであり、We
 
 https://github.com/u1f992/vivliostyle-preview-in-container
 
-このセットアップでは、コンテナ内でnoVNCをサーブし、ホスト側のWebブラウザからはそのページにアクセスします。通常の`vivliostyle preview`と近い使い勝手で、コンテナ内で行える安定した組版のプレビューが可能です。
+Vivliostyle CLI（v10.5.0）にはDockerを用いるモードが用意されていますが、今回は使用しません。このセットアップでは、コンテナ内でnoVNCをサーブし、ホスト側のWebブラウザからはそのページにアクセスします。通常の`vivliostyle preview`と近い使い勝手で、コンテナ内で行える安定した組版のプレビューが可能です。
 
 ```bash:scripts/preview.sh
 DEBIAN_FRONTEND=noninteractive apt-get install -qq --yes --no-install-recommends \

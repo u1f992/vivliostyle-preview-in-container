@@ -3,3 +3,11 @@
   bleed: 3mm;
   marks: crop cross;
 }
+
+figure img {
+  max-width: 100%;
+}
+
+figure pre {
+  white-space: pre-wrap;
+}

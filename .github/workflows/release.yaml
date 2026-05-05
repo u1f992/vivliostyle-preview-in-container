@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build PDF
+        run: docker run --rm --volume .:/workdir --workdir /workdir --user root --entrypoint bash --tty ghcr.io/vivliostyle/cli:10.5.0 scripts/build.sh
+
+      - name: Update latest tag
+        run: git push origin --force HEAD:refs/tags/latest
+
+      - name: Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: latest
+          files: vivliostyle-preview-in-container.pdf

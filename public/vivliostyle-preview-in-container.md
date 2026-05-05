@@ -10,7 +10,7 @@ slide: false
 ignorePublish: true
 ---
 
-Vivliostyleの組版処理はクライアントサイドJavaScriptであり、Webブラウザを動作させるOSの影響を受けます。実際に以下のような差が発生すると報告されています。これらは個別にはChromiumのバグやフォントファイルの不具合と言えるものですが、Webブラウザの組版処理にOSごとの分岐が存在することが伝われば十分です。
+Vivliostyleの組版処理はクライアントサイドJavaScriptであり、Webブラウザを動作させるOSの影響を受けます。実際に以下のような差が発生すると報告されています。これらは個別にはChromiumのバグやフォントファイルの不具合と言えるものですが、Webブラウザの組版処理にOSごとの分岐が存在し、特に複雑ではない制作でも遭遇しうることが伝われば十分です。
 
 > Chromiumブラウザの場合、テキストのレンダリングがOSによって異なり、特にLinux環境では、テキストノードの境界ごとに幅がわずかに増加する現象があります。 — [vivliostyle/vivliostyle.js#1590](https://github.com/vivliostyle/vivliostyle.js/issues/1590)
 
@@ -30,6 +30,8 @@ Vivliostyleの組版処理はクライアントサイドJavaScriptであり、We
 
 [^complexity]: Dockerを導入している時点で十分複雑であり、Xサーバーのインストールが今さら何だという異論はあると思います。
 
+[u1f992/vivliostyle-preview-in-container](u1f992/vivliostyle-preview-in-container)
+
 https://github.com/u1f992/vivliostyle-preview-in-container
 
 このセットアップでは、コンテナ内でnoVNCをサーブし、ホスト側のWebブラウザからはそのページにアクセスします。通常の`vivliostyle preview`と近い使い勝手で、コンテナ内で行える安定した組版のプレビューが可能です。
@@ -41,4 +43,17 @@ DEBIAN_FRONTEND=noninteractive apt-get install -qq --yes --no-install-recommends
   supervisor=4.2.5-3 \
   tigervnc-standalone-server=1.15.0+dfsg-2 \
   >/dev/null
+```
+
+![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/1550728/44fe94b1-e99e-4e3c-88d2-a5035c1a9d80.png)
+
+ブラウザ内でブラウザのウィンドウが表示されている珍しい状態になります。内側のブラウザを全画面表示にすればあたかもWebページのように見せることもできます[^fullscreen]。
+
+[^fullscreen]: 実制作では自動で全画面になるようにしていたのですが、複雑になるばかりでメリットが限定的、単に手動で行えば事足りることなので勧めません。
+
+コンテナでPDFを出力することで、特別な考慮をせずにCIで信頼できるPDFを出力できる別のメリットもあります。サンプルリポジトリでもセットアップしています。
+
+```yaml:.github/workflows/release.yaml
+- name: Build PDF
+  run: docker run --rm --volume .:/workdir --workdir /workdir --user root --entrypoint bash --tty ghcr.io/vivliostyle/cli:10.5.0 scripts/build.sh
 ```

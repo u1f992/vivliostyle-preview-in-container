@@ -31,3 +31,14 @@ Vivliostyleの組版処理はクライアントサイドJavaScriptであり、We
 [^complexity]: Dockerを導入している時点で十分複雑であり、Xサーバーのインストールが今さら何だという異論はあると思います。
 
 https://github.com/u1f992/vivliostyle-preview-in-container
+
+このセットアップでは、コンテナ内でnoVNCをサーブし、ホスト側のWebブラウザからはそのページにアクセスします。通常の`vivliostyle preview`と近い使い勝手で、コンテナ内で行える安定した組版のプレビューが可能です。
+
+```bash:scripts/preview.sh
+DEBIAN_FRONTEND=noninteractive apt-get install -qq --yes --no-install-recommends \
+  matchbox-window-manager=1.2.2+git20200512-2 \
+  novnc=1:1.6.0-2 \
+  supervisor=4.2.5-3 \
+  tigervnc-standalone-server=1.15.0+dfsg-2 \
+  >/dev/null
+```

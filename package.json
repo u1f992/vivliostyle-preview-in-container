@@ -1,1 +1,6 @@
-{"devDependencies":{"@qiita/qiita-cli":"^1.8.0"}}
+{
+  "devDependencies": {
+    "@qiita/qiita-cli": "^1.8.0",
+    "@vivliostyle/cli": "10.5.0"
+  }
+}

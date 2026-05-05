@@ -149,3 +149,6 @@ vite.config.ts.timestamp-*
 # from `npx qiita init`
 .remote
 node_modules
+
+# --------------------------------------------------
+.vivliostyle/

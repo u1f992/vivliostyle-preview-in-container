@@ -1,0 +1,16 @@
+{
+  "//": [
+    "Vivliostyle CLIにテーマを認識させるためのpackage.json",
+    "see https://github.com/vivliostyle/vivliostyle-cli/issues/517#issuecomment-2381590030",
+    "",
+    "`name`と`vivliostyle.theme.style`が必須",
+    "see https://github.com/vivliostyle/vivliostyle-cli/blob/v10.5.0/src/config/resolve.ts#L525-L527",
+    "see https://github.com/vivliostyle/vivliostyle-cli/blob/v10.5.0/src/processor/compile.ts#L69"
+  ],
+  "name": "base",
+  "vivliostyle": {
+    "theme": {
+      "style": "style.css"
+    }
+  }
+}

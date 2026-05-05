@@ -10,7 +10,7 @@ updated_at: ''
 id: null
 organization_url_name: null
 slide: false
-ignorePublish: true
+ignorePublish: false
 ---
 
 Vivliostyleの組版処理はクライアントサイドJavaScriptであり、Webブラウザを動作させるOSの影響を受けます。実際に以下のような差が発生すると報告されています。これらは個別にはChromiumのバグやフォントファイルの不具合と言えるものですが、Webブラウザの組版処理にOSごとの分岐が存在し、特に複雑ではない制作でも遭遇しうることが伝われば十分です。

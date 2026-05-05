@@ -6,7 +6,7 @@ export default defineConfig({
   author: "u1f992",
   language: "ja",
   theme: "./theme",
-  entry: ["public/manuscript.md"],
+  entry: ["public/vivliostyle-preview-in-container.md"],
   vfm: {
     footnote: "gcpm",
   },

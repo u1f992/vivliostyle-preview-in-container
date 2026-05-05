@@ -5,11 +5,10 @@ on:
   push:
     branches:
       - main
-      - master
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -19,11 +18,19 @@ jobs:
   publish_articles:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    # increments/qiita-cli/actions/publish@v1 のステップを手元に展開したもの。
+    # 同アクションは `qiita publish` の後に `git add public/* && git commit && git push`
+    # を実行してQiitaが採番した記事ID（`id:` フロントマター）をリポジトリに書き戻す。
+    # このリポジトリは原稿→Qiitaの一方向同期で運用しており、ワークフローからの
+    # 書き戻しを行わせたくないため、最後のコミット/プッシュ手順は意図的に省いている。
+    # node/setup-node/qiita-cli のバージョンは upstream の action.yml と揃える:
+    # https://github.com/increments/qiita-cli/blob/v1/actions/publish/action.yml
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
-          fetch-depth: 0
-      - uses: increments/qiita-cli/actions/publish@v1
-        with:
-          qiita-token: ${{ secrets.QIITA_TOKEN }}
-          root: "."
+          node-version: "20.16.0"
+      - run: npm install -g "@qiita/qiita-cli@v1.8.0"
+      - run: qiita publish --all --root .
+        env:
+          QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
